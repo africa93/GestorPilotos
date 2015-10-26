@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 public class ActividadPrincipal extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +49,15 @@ public class ActividadPrincipal extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
+
+        db.add(new Piloto(1, "P1",1,"moto1", true));
+        db.add(new Piloto(1, "P2",1,"moto2", true));
+        db.add(new Piloto(1, "P3",1,"moto3", true));
     }
 }

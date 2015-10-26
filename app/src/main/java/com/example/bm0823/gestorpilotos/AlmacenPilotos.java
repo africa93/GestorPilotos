@@ -55,10 +55,12 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
     }
 
     public ArrayList<Piloto> getAll(){
-        //Abrir bd lectura
+        ArrayList<Piloto> resultado = new ArrayList<>();
+        //TODO Abrir bd lectura
         SQLiteDatabase db = this.getReadableDatabase();
-        //recorrer cursor asignando resultados
+        //TODO recorrer cursor asignando resultados
 
-        //devolver resultado
+        //TO DO devolver resultado
+        return resultado;
     }
 }

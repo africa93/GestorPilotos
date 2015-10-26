@@ -1,0 +1,8 @@
+/.gradle/
+/build/
+/local.properties
+/.idea/
+/app/build/
+/app/src/androidTest/
+app/src/test
+*.iml

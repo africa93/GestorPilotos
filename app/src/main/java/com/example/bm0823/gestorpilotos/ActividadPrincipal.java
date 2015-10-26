@@ -56,8 +56,13 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-        db.add(new Piloto(1, "P1",1,"moto1", true));
-        db.add(new Piloto(1, "P2",1,"moto2", true));
-        db.add(new Piloto(1, "P3",1,"moto3", true));
+        db.add(new Piloto(4, "P1",1,"moto1", true));
+        db.add(new Piloto(2, "P2",1,"moto2", true));
+        db.add(new Piloto(3, "P3",1,"moto3", true));
+
+        //TODO recuperar todos los pilotos
+
+        //TODO mostrar pilotos en lista
+
     }
 }

@@ -5,6 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+
 import static com.example.bm0823.gestorpilotos.PilotoContract.tablaPiloto;
 
 public class AlmacenPilotos extends SQLiteOpenHelper {
@@ -20,7 +23,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String consultaSQL = "CREATE TABLE" + tablaPiloto.TABLE_NAME
+        String consultaSQL = "CREATE TABLE " + tablaPiloto.TABLE_NAME
                 +" (" +tablaPiloto.COL_NAME_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + tablaPiloto.COL_NAME_NOMBRE + " TEXT, "
                 + tablaPiloto.COL_NAME_DORSAL + " INTEGER, "
@@ -49,5 +52,13 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
             valores.put(tablaPiloto.COL_NAME_ACTIVO, 0);
         }
         return (int) db.insert(tablaPiloto.TABLE_NAME,null,valores);
+    }
+
+    public ArrayList<Piloto> getAll(){
+        //Abrir bd lectura
+        SQLiteDatabase db = this.getReadableDatabase();
+        //recorrer cursor asignando resultados
+
+        //devolver resultado
     }
 }

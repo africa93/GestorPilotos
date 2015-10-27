@@ -59,11 +59,6 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         ArrayList<Piloto> resultado = new ArrayList<>();
         //TO DO Abrir bd lectura
         SQLiteDatabase db = this.getReadableDatabase();
-        //ahora hacemos un select que nos devuelve un cursor
-        //Se comprueba que no es nulo
-        //Con el cursor moveToFirst
-        //bucle while(noestemosalfinaldeltultimo)
-        //creamos un objeto de la clase piloto y no añadimos a la lista
 
         String consultaSQL ="SELECT * FROM " + tablaPiloto.TABLE_NAME;
         Cursor cursor = db.rawQuery(consultaSQL, null);

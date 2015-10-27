@@ -3,6 +3,7 @@ package com.example.bm0823.gestorpilotos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -56,10 +57,31 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
 
     public ArrayList<Piloto> getAll(){
         ArrayList<Piloto> resultado = new ArrayList<>();
-        //TODO Abrir bd lectura
+        //TO DO Abrir bd lectura
         SQLiteDatabase db = this.getReadableDatabase();
-        //TODO recorrer cursor asignando resultados
+        //ahora hacemos un select que nos devuelve un cursor
+        //Se comprueba que no es nulo
+        //Con el cursor moveToFirst
+        //bucle while(noestemosalfinaldeltultimo)
+        //creamos un objeto de la clase piloto y no añadimos a la lista
 
+        String consultaSQL ="SELECT * FROM " + tablaPiloto.TABLE_NAME;
+        Cursor cursor = db.rawQuery(consultaSQL, null);
+        //TO DO recorrer cursor asignando resultados
+        if(cursor != null){
+            cursor.moveToFirst();
+            do{
+                       resultado.add(new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
+                            cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_NOMBRE)),
+                            cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_DORSAL)),
+                            cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_MOTO)),
+                            cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0 ));
+
+            }while(cursor.moveToNext());
+        }
+        try {
+            cursor.close();
+        }catch (Exception ex){}
         //TO DO devolver resultado
         return resultado;
     }

@@ -5,9 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 public class ActividadPrincipal extends AppCompatActivity {
 
@@ -56,13 +59,17 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-        db.add(new Piloto(4, "P1",1,"moto1", true));
-        db.add(new Piloto(2, "P2",1,"moto2", true));
-        db.add(new Piloto(3, "P3",1,"moto3", true));
+        //db.add(new Piloto(4, "P1",1,"moto1", true));
+        //db.add(new Piloto(2, "P2",1,"moto2", true));
+        //db.add(new Piloto(3, "P3",1,"moto3", true));
 
-        //TODO recuperar todos los pilotos
+        //TO DO recuperar todos los pilotos
+        ArrayList<Piloto> pilotos =db.getAll();
 
-        //TODO mostrar pilotos en lista
+        //TO DO mostrar pilotos en lista
+        for(int i=0; i<pilotos.size(); i++){
+            Log.i("Piloto: ", pilotos.get(i).toString());
+        }
 
     }
 }

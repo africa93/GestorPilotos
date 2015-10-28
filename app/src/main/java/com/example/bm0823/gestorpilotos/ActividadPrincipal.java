@@ -1,5 +1,6 @@
 package com.example.bm0823.gestorpilotos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,8 +46,20 @@ public class ActividadPrincipal extends AppCompatActivity {
         lvPilotos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String opcionElegida = lvPilotos.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), opcionElegida, Toast.LENGTH_SHORT).show();
+                Piloto piloto = (Piloto)lvPilotos.getItemAtPosition(position);
+                Intent nuevoIntent = new Intent(ActividadPrincipal.this, MostrarPiloto.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("ID", piloto.get_id());
+                bundle.putString("NOMBRE", piloto.get_nombre());
+                bundle.putInt("DORSAL", piloto.get_dorsal());
+                bundle.putString("MOTO", piloto.get_moto());
+                bundle.putBoolean("ACTIVO", piloto.is_activo());
+                bundle.putString("IMAGENNURL", piloto.getImagen_url());
+                nuevoIntent.putExtras(bundle);
+                startActivity(nuevoIntent);
+                //String opcionElegida = lvPilotos.getItemAtPosition(position).toString();
+                //Toast.makeText(getApplicationContext(), opcionElegida, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -79,9 +92,11 @@ public class ActividadPrincipal extends AppCompatActivity {
         super.onStart();
         AlmacenPilotos db = new AlmacenPilotos(getApplicationContext());
 
-        db.add(new Piloto(4, "P1",1,"moto1", true, "imagenURL1"));
-        db.add(new Piloto(2, "P2",1,"moto2", true, "imagenURL1"));
-        db.add(new Piloto(3, "P3",1,"moto3", true, "imagenURL1"));
+        db.deleteAll();
+
+        db.add(new Piloto(4, "P1",1,"moto1", true, null));
+        db.add(new Piloto(2, "P2",1,"moto2", true, "http://www.smscubano.com/galerias/thumbnail/icon-female.png"));
+        db.add(new Piloto(3, "P3",1,"moto3", true, null));
 
         //TO DO recuperar todos los pilotos
         ArrayList<Piloto> pilotos =db.getAll();

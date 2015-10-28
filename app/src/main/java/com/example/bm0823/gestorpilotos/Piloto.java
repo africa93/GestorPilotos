@@ -6,13 +6,15 @@ public class Piloto {
     private int _dorsal;
     private String _moto;
     private boolean _activo;
+    private String imagen_url;
 
-    public Piloto(int id, String nombre, int dorsal, String moto, boolean activo) {
+    public Piloto(int id, String nombre, int dorsal, String moto, boolean activo, String imagen_url) {
         this._id = id;
         this._nombre = nombre;
         this._dorsal = dorsal;
         this._moto = moto;
         this._activo = activo;
+        this.imagen_url = imagen_url;
     }
 
     public int get_id() {
@@ -55,6 +57,10 @@ public class Piloto {
         this._activo = _activo;
     }
 
+    public String getImagen_url(){ return imagen_url; }
+
+    public void setImagen_url(String imagen_url){ this.imagen_url=imagen_url; }
+
     @Override
     public String toString() {
         return "Piloto{" +
@@ -63,6 +69,7 @@ public class Piloto {
                 ", _dorsal=" + _dorsal +
                 ", _moto='" + _moto + '\'' +
                 ", _activo=" + _activo +
+                ", imagen_url="+imagen_url +
                 '}';
     }
 }

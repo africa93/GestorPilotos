@@ -16,7 +16,7 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
     //nombre del fichero de BD
     protected static final String DEFAULT_DB_FILENAME = "pilotos.db";
 
-    protected static final int DATABASE_VERSION = 1;
+    protected static final int DATABASE_VERSION = 2;
 
     public AlmacenPilotos(Context context) {
         super(context, DEFAULT_DB_FILENAME, null, DATABASE_VERSION);
@@ -29,13 +29,14 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
                 + tablaPiloto.COL_NAME_NOMBRE + " TEXT, "
                 + tablaPiloto.COL_NAME_DORSAL + " INTEGER, "
                 + tablaPiloto.COL_NAME_MOTO + " TEXT, "
-                + tablaPiloto.COL_NAME_ACTIVO + "  INTEGER)";
+                + tablaPiloto.COL_NAME_ACTIVO + "  INTEGER, "
+                + tablaPiloto.COL_NAME_IMAGENURL + " TEXT )";
         db.execSQL(consultaSQL);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String consultaSQL = "DROP TABLE "+tablaPiloto.TABLE_NAME;
+        String consultaSQL = "DROP TABLE IF EXISTS "+tablaPiloto.TABLE_NAME;
         db.execSQL(consultaSQL);
         onCreate(db);
     }
@@ -52,6 +53,8 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         }else{
             valores.put(tablaPiloto.COL_NAME_ACTIVO, 0);
         }
+        valores.put(tablaPiloto.COL_NAME_IMAGENURL, piloto.getImagen_url());
+
         return (int) db.insert(tablaPiloto.TABLE_NAME,null,valores);
     }
 
@@ -63,20 +66,19 @@ public class AlmacenPilotos extends SQLiteOpenHelper {
         String consultaSQL ="SELECT * FROM " + tablaPiloto.TABLE_NAME;
         Cursor cursor = db.rawQuery(consultaSQL, null);
         //TO DO recorrer cursor asignando resultados
-        if(cursor != null){
-            cursor.moveToFirst();
+        if (cursor.moveToFirst()){
             do{
-                       resultado.add(new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
-                            cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_NOMBRE)),
-                            cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_DORSAL)),
-                            cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_MOTO)),
-                            cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0 ));
+                Piloto piloto = new Piloto(cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ID)),
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_NOMBRE)),
+                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_DORSAL)),
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_MOTO)),
+                        cursor.getInt(cursor.getColumnIndex(tablaPiloto.COL_NAME_ACTIVO)) != 0 ,
+                        cursor.getString(cursor.getColumnIndex(tablaPiloto.COL_NAME_IMAGENURL)));
+               resultado.add(piloto);
 
             }while(cursor.moveToNext());
-        }
-        try {
             cursor.close();
-        }catch (Exception ex){}
+        }
         //TO DO devolver resultado
         return resultado;
     }
